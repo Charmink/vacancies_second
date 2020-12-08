@@ -1,0 +1,28 @@
+{% extends 'vacancies/base_company.html' %}
+{% block title %}
+<title>Моя компания | Джуманджи</title>
+{% endblock %}
+{% block menu %}
+<div class="col-12 col-lg-4">
+        <aside class="pt-3 pb-4 px-4 mb-5 card">
+          <h1 class="h4 pt-2 pb-2">Моя компания</h1>
+          {% url 'my_vacancies' as my_vac_url %}
+          {% url 'my_companies' as my_com_url %}
+          <div class="nav flex-column nav-pills">
+            {% if request.path == my_vac_url %}
+            <a class="nav-link" href="{% url 'my_company' %}">1. Информация о&nbsp;компании</a>
+            <a class="nav-link active" href="{% url 'my_vacancies' %}">2. Вакансии</a>
+            {% else %}
+            <a class="nav-link active" href="{% url 'my_company' %}">1. Информация о&nbsp;компании</a>
+            <a class="nav-link" href="{% url 'my_vacancies' %}">2. Вакансии</a>
+            {% endif %}
+          </div>
+        </aside>
+</div>
+{% endblock %}
+{% block content %}
+<p class="alert alert-info" role="alert">Информация о компании обновлена</p>
+            {% load crispy_forms_tags %}
+    {% crispy form %}
+
+{% endblock %}

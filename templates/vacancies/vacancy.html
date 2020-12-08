@@ -1,0 +1,36 @@
+{% extends 'vacancies/base.html' %}
+{% block content %}
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-12 col-lg-2">
+        <div class="pl-3 mb-5">
+          <p><a href="/">Назад</a></p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8">
+        <section class="pl-3">
+          <a href="{% url 'company' object.company.id %}"><img src="{{ object.company.logo.url }}" width="130" height="80" alt=""></a>
+          <div class="d-flex align-items-baseline align-content-baseline">
+            <h1 class="h2 mt-4 font-weight-bold" >{{ object.title }}</h1>
+            <p class="m-0 pl-3">{{ object.salary_min }} – {{ object.salary_max }} Р</p>
+          </div>
+          <p class="mt-2">{{ object.skills }}</p>
+          <p class="text-muted mb-4">{{ object.company.name }} ({{ object.company.employee_count}} человек),  {{ object.company.location }}</p>
+          <div style="line-height: 1.8;">
+            {{ object.description|safe }}
+          </div>
+          {% if user.is_authenticated %}
+          {% load crispy_forms_tags %}
+            {% crispy form form.helper %}
+          {% else %}
+           <p class="alert alert-info" role="alert">Чтобы отправить отклик зарегистрируйтесь или авторизуйтесь!</p>
+           <div class="row">
+             <a type="button" class="col-3 ml-3 mr-1 btn btn-info" href="{% url 'login' %}">Войти</a>
+             <a type="button" class="col-3 btn btn-info" href="{% url 'signup' %}">Зарегистрироваться</a>
+           </div>
+          {% endif %}
+        </section>
+      </div>
+    </div>
+  </main>
+{% endblock %}
